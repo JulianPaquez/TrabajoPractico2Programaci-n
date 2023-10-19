@@ -93,7 +93,25 @@ while respuesta != "salir":
         if int(opt) == 1:
             emailEstudiante = str(input("Ingrese el mail\n"))
             ContrEstudiante = input("Ingrese la contraseña\n")
-            print(Estudiante1.ValidarIngresoEstudiante(emailEstudiante,ContrEstudiante))
+            print(Estudiante1.ValidarIngresoEstudiante(emailEstudiante,ContrEstudiante)) #arreglar IF
+            #Faltarian algunas cosas que poner
+            opt = input("\n Ingrese una opción del menú: ")
+            print("1 - Matricularse a un curso")
+            print("2 - Ver curso")
+            print("3 - Volver al menú principal")
+            os.system ("cls") #Limpiar pantalla
+            if opt.isnumeric():
+                if int(opt) == 1:
+                    print("Programación I")
+                elif int(opt) == 2:
+                    print("Programación II")
+                elif int(opt) == 3:
+                    print("Laboratorio II")
+                elif int (opt) == 4:
+                    print(" InglesI")
+                elif int (opt) == 5:
+                    print("InglesII")
+            
         elif int(opt) == 2:
             emailProfesor = str(input("Ingrese el mail\n"))
             ContrProfesor = input("Ingrese la contraseña\n")
