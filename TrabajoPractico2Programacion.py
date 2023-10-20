@@ -1,3 +1,5 @@
+import random
+
 class Usuario():
     def __init__(self,nombre,apellido,email,contrasenia):
         self.nombre = nombre
@@ -22,11 +24,11 @@ class Estudiante(Usuario):
     
     def ValidarIngresoEstudiante(self,emailEstudiante,ContrEstudiante):
         if(self.email == emailEstudiante and self.contrasenia == ContrEstudiante):
-            print("Ha accedido al sistema")
+            return print("Ha accedido al sistema")
         elif(self.email != emailEstudiante  or self.contrasenia != ContrEstudiante):
-            print("contraseña o mail incorrecta")
+            return print("contraseña o mail incorrecta")
         elif(self.email != emailEstudiante  and self.contrasenia != ContrEstudiante):
-            print("Alumno inexistente,debe darse de alta en alumnado")
+            return print("Alumno inexistente,debe darse de alta en alumnado")
 
 
 
@@ -35,6 +37,7 @@ class Profesor(Usuario):
         super().__init__(nombre, apellido, email, contrasenia)
         self.titulo = str(input("Ingrese su título\n"))
         self.anioEgreso = int(input("Ingrese el año de egreso\n"))
+        self.mis_cursosProfesor = []
     
     def __str__(self) -> str:
         return f"Nombre: {self.nombre} \n Apellido: {self.apellido} \n Email: {self.email} \n Contraseña: ************* \n Legajo: {self.titulo} \n Año: {self.anioEgreso}"
@@ -43,20 +46,71 @@ class Profesor(Usuario):
 
     def ValidarIngresoProfesor(self):
         if(self.email == emailProfesor and self.contrasenia == ContrProfesor):
-            print("Ha accedido al sistema")
+            return print("Ha accedido al sistema")
         elif(self.contrasenia != ContrProfesor or self.email != emailProfesor):
-            print("contraseña o mail incorrecta")
+            return print("contraseña o mail incorrecta")
         else:
-            print("Profesor inexistente,debe darse de alta en alumnado")
+            return print("Profesor inexistente,debe darse de alta en alumnado")
+        
+    def DictarCurso(self):
+        # Generar una contraseña aleatoria para el curso
+        contrasena = str(random.randint(10000, 99999))
+
+        # Agregar el curso a la lista de cursos del profesor
+        self.mis_cursosProfesor.append(contrasena)
+
+        # Mostrar un mensaje de éxito
+        print(f"Curso {contrasena} dado de alta correctamente")
+    
+    def MenuProfesor(profesor):
+     print("1. Dictar curso")
+     print("2. Ver curso")
+     print("3. Volver al menú principal")
+     opcion = input("Ingrese la opción de menú: ")
+
+     if opcion == "1":
+        # Dictar un curso
+        profesor.DictarCurso()
+
+     elif opcion == "2":
+        # Ver cursos
+        profesor.VerCursos()
+
+     elif opcion == "3":
+        return
+
+     else:
+        print("Ingrese una opción válida")
 
 
 
 
-"""class mis_cursos(Estudiante):
-    def __init__(self, nombre, apellido, email, contrasenia):
-        super().__init__(nombre, apellido, email, contrasenia)"""
+class Curso(Estudiante):
+    def __init__(self, nombre,contrasenia):
+        self.nombre = nombre
+        self.contrasenia = contrasenia
+        self.mis_cursosEstudiante = []
+        
+    def Matricular(self,curso,contraseniaMateria):
+        if curso in self.mis_cursosEstudiante:
+            print("El curso ya está matriculado")
+            return
+        if contraseniaMateria != self.contrasenia["contraseña"]:
+            print("Contraseña incorrecta.")
+            return
+        self.mis_cursosEstudiante.append(curso)
+        print("El curso se ha matriculado correctamente")
+        
+          
 
 
+cursos = {
+     "Programación I": {"contraseña": "11111"},
+     "Programación II": {"contraseña": "22222"},
+     "Laboratorio II": {"contraseña": "33333"},
+     "Inglés I": {"contraseña": "44444"},
+     "Inglés II": {"contraseña": "66666"},
+     }
 
 Personas = []
 Estudiante1 = Estudiante("Lucas", "Gonzales", "lucasGonzales@gmail.com", 1234)
@@ -73,6 +127,7 @@ def Materia():
     print("Materia: LaboratorioII \t Carrera: Tecnicatura Universitaria en Programación")
     print("Materia: ProgramaciónI \t Carrera: Tecnicatura Universitaria en Programación")
     print("Materia: ProgramaciónII \t Carrera: Tecnicatura Universitaria en Programación")
+
 
 import os
 
@@ -93,30 +148,42 @@ while respuesta != "salir":
         if int(opt) == 1:
             emailEstudiante = str(input("Ingrese el mail\n"))
             ContrEstudiante = input("Ingrese la contraseña\n")
-            print(Estudiante1.ValidarIngresoEstudiante(emailEstudiante,ContrEstudiante)) #arreglar IF
-            #Faltarian algunas cosas que poner
-            opt = input("\n Ingrese una opción del menú: ")
-            print("1 - Matricularse a un curso")
-            print("2 - Ver curso")
-            print("3 - Volver al menú principal")
-            os.system ("cls") #Limpiar pantalla
-            if opt.isnumeric():
-                if int(opt) == 1:
+            resultado = Estudiante1.ValidarIngresoEstudiante(emailEstudiante,ContrEstudiante)
+            print(resultado) #arreglar IF
+            if resultado == "Ha accedido al sistema":
+             opcion1 = input("\n Ingrese una opción del menú: ")
+             print("1 - Matricularse a un curso")
+             print("2 - Ver curso")
+             print("3 - Volver al menú principal")
+             os.system ("cls") #Limpiar pantalla
+             if opcion1.isnumeric():
+                if(opcion1 == 1):
+                 optMateria = int(input("Ingrese una opcion para seleccionar una materia"))
+                 if int(optMateria) == 1:
                     print("Programación I")
-                elif int(opt) == 2:
+                    devolucion = Estudiante1.Matricular("Programación I",cursos["Programación I"]["contraseña"]) 
+                 elif int(optMateria) == 2:
                     print("Programación II")
-                elif int(opt) == 3:
+                    devolucion = Estudiante1.Matricular("Programación I",cursos["Programación II"]["contraseña"]) 
+                 elif int(optMateria) == 3:
                     print("Laboratorio II")
-                elif int (opt) == 4:
-                    print(" InglesI")
-                elif int (opt) == 5:
+                    devolucion = Estudiante1.Matricular("Programación I",cursos["Laboratorio II"]["contraseña"]) 
+                 elif int (optMateria) == 4:
+                    print(" Ingles I")
+                    devolucion = Estudiante1.Matricular("Programación I",cursos["Inglés I"]["contraseña"]) 
+                 elif int (optMateria) == 5:
                     print("InglesII")
-            
+                    devolucion = Estudiante1.Matricular("Programación I",cursos["Inglés II"]["contraseña"]) 
+            else:
+                print("Opcion incorrecta")
         elif int(opt) == 2:
             emailProfesor = str(input("Ingrese el mail\n"))
             ContrProfesor = input("Ingrese la contraseña\n")
-            print(Profesor.ValidarIngresoProfesor())
+            profesorCurso = Profesor(emailProfesor, ContrProfesor)
+            profesorCurso.ValidarIngresoProfesor()
+            #MenuProfesor.ProfesorCurso no se pq no funciona
 
+            
         elif int(opt) == 3:
             Materia()
             
