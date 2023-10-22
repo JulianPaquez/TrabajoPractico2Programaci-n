@@ -23,8 +23,8 @@ class Estudiante(Usuario):
     def ValidarIngresoEstudiante(self):
         emailEstudiante = input("Ingrese su correo: ")
         ContrEstudiante = input("Ingrese su contraseña: ")
-        """ vali = ValidarUsuario(emailEstudiante,Estudiantes(lista))
-            Vali2 =ValidarUsuarioCoontr(ContrEstudiante,emailEstudiante,Estudiantes(lista)) """
+        #""" vali = ValidarUsuario(emailEstudiante,Estudiantes(lista))
+            #Vali2 =ValidarUsuarioCoontr(ContrEstudiante,emailEstudiante,Estudiantes(lista)) """
         if emailEstudiante == "lucasgonzalez@gmail.com" and ContrEstudiante == "1234":
             return "Ha accedido al sistema"
         elif emailEstudiante != "lucasgonzalez@gmail.com":
@@ -55,18 +55,18 @@ class Profesor(Usuario):
     def __str__(self) -> str:
         return f"Nombre: {self.nombre} \n Apellido: {self.apellido} \n Email: {self.email} \n Contraseña: ************* \n Legajo: {self.titulo} \n Año: {self.anioEgreso}"
 
-    def DictarCurso(self):#solucionar esto
-       for idx, (materia, _) in enumerate(cursos.items(), start=1):#????
-            print(f"{idx}. {materia}")
+    def DictarCurso(self):
+        for materia in cursos:
+         print(materia)
         
-       OptCurso = int(input("Ingrese el curso en el que desea dar clases\n"))
-       if 1 <= OptCurso <= len(cursos):#???
+        OptCurso = int(input("Ingrese el curso en el que desea dar clases\n"))
+        if 1 <= OptCurso <= len(cursos):#???
          materia = list(cursos.keys())[OptCurso - 1]
          contrasena = str(random.randint(10000, 99999))
          self.mis_cursosProfesor.append(contrasena)
-       else:
+        else:
             print("Opción inválida")
-       return f"Curso {materia}\t Contraseña: {contrasena} dado de alta correctamente"#arreglar esto
+        return f"Curso {materia}\t Contraseña: {contrasena} dado de alta correctamente"#arreglar esto
 
     def VerCursos(self):
         return self.mis_cursosProfesor
@@ -160,8 +160,8 @@ while respuesta != "salir":
                 if opcion1.isnumeric():
                     if int(opcion1) == 1:
                         print("Materias disponibles:")
-                        for idx, (materia, _) in enumerate(cursos.items(), start=1):#????
-                            print(f"{idx}. {materia}")
+                        for materia in cursos:
+                         print(materia)
                         optMateria = int(input("Ingrese el número de la materia para matricularse: "))
                         if 1 <= optMateria <= len(cursos):#???
                             materia = list(cursos.keys())[optMateria - 1]
@@ -198,10 +198,10 @@ while respuesta != "salir":
                     devolucion = Profesor1.DictarCurso()
                     print(devolucion)
                 elif opcion2 == "2":
-                    cursos_impartidos = Profesor1.VerCursos()
-                    if cursos_impartidos:
+                    cursos_inscriptos = Profesor1.VerCursos()
+                    if cursos_inscriptos:
                         print("Cursos donde dará clases:")
-                        for curso in cursos_impartidos:
+                        for curso in cursos_inscriptos:
                             print("Materia y Contraseña",curso)
                     else:
                         print("No estás inscripto en ningún curso.")
