@@ -64,7 +64,7 @@ class Profesor(Usuario):
         if 1 <= OptCurso <= len(cursos):
             materia = list(cursos.keys())[OptCurso - 1]
             contrasena = str(random.randint(10000, 99999))
-            self.mis_cursosProfesor.append(contrasena)
+            self.mis_cursosProfesor.append(materia)
         else:
             print("Opción inválida")
         return f"Curso {materia}\t Contraseña: {contrasena} dado de alta correctamente"
@@ -222,7 +222,7 @@ while respuesta != "salir":
                         else:
                             print("Opción inválida")
             else:
-                print("Opción inválida")
+                print("Opción inválida.Contraseña o mail Incorrectos")
             
 
         elif int(opt) == 2:
@@ -240,7 +240,7 @@ while respuesta != "salir":
             if profesor_inscripto:
                 print(f"Usted accedió correctamente al sistema, {profesor_inscripto.nombre}!")
                 opcion2 = None
-                print("1 - Matricularse a un curso")
+                print("1 - Dictar curso")
                 print("2 - Ver curso")
                 print("3 - Volver al menú principal")
                 opcion2 = input("\n Ingrese una opción del menú: ") 
@@ -259,6 +259,8 @@ while respuesta != "salir":
                     pass
                 else:
                     print("Opción incorrecta")
+            else:
+                 print("Opcion Inválida.El mail o contraseña es incorrecto")
         elif int(opt) == 3:
             Curso.__str__()
         elif int(opt) == 4:
