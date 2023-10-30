@@ -53,6 +53,8 @@ class Estudiante(Usuario):
             return "Contraseña incorrecta"
         self.mis_cursosEstudiante.append(curso)
         return f"Te has matriculado en el curso {curso}\n "#Archivos:\n tpi.pdf\n practica1.pdf"
+    
+    def Desmatricularse(self,curso)
 
 
 
@@ -180,7 +182,7 @@ profesor2 = Profesor("Ruben", "Perez", "rubenperez@gmail.com", "888", "Ingeniero
 profesor3 = Profesor("Jose", "Gomez", "josegomez@gmail.com", "999", "Tecnico en Programacion", "2021")
 profesor4 = Profesor("Juan", "Lopez", "juanlopez@gmail.com", "1010", "Profesorado en Matematica", "2001")
 
-Profesores = [profesor1,profesor2,profesor3,profesor4]
+Profesores = [profesor1,profesor2,profesor3,profesor4,profesor5]
 
 
 
@@ -272,23 +274,24 @@ while respuesta != "salir":
             # ContrProfesor = input("Ingrese su contraseña: ")
                 emailProfesor = input("Ingrese su correo: ")
                 ContrProfesor = input("Ingrese su contraseña: ")
-                mensaje = profesor.IngresarComoProfesor(emailProfesor,ContrProfesor)
+                #mensaje = profesor.IngresarComoProfesor(emailProfesor,ContrProfesor)
                 print(mensaje)
-            profesor_inscripto = None
-            # for profesor in Profesores:
-            #     if profesor.email == emailProfesor and profesor.contrasenia == ContrProfesor:
-            #         profesor_inscripto = profesor
-            #         break
-            #     else:
-            #         print("El profesor no esta inscripto")
-            #         Codigo_admin = input("Ingrese el codigo 'admin' para darse de alta como profesor")
+                profesor_inscripto = None
+                for profesor in Profesores:
+                       if profesor.email == emailProfesor and profesor.contrasenia == ContrProfesor:
+                            profesor_inscripto = profesor
+                            break
+                        else:
+                                print("El profesor no esta inscripto")
+                                Codigo_admin = input("Ingrese el codigo 'admin' para darse de alta como profesor")
 
-            #         if Codigo_admin == "admin":
-            #             print("Profesor agregado con éxito")
-            #             Profesores.append("""Agregar profesor""") #agregar un profesor
-            #         else:
-            #             print("Código incorrecto")
-
+                        if Codigo_admin == "admin":
+                                print("Profesor agregado con éxito")
+                                profesor5 = Profesor("Fernando", "Gutierrez", "fergutierrez@gmail.com", "2020", "Profesorado en Ingles", "2003")
+                                Profesores.append("""Agregar profesor""") #agregar un profesor
+                        else:
+                                print("Código incorrecto")
+                        
             if profesor_inscripto:
                 print(f"Usted accedió correctamente al sistema, {profesor_inscripto.nombre}!")
                 opcion2 = None
