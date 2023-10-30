@@ -22,21 +22,29 @@ class Estudiante(Usuario):
     def __str__(self):
         return f"Estudiante: {self.nombre} {self.apellido}, Email: {self.email},Contraseña: {self.contrasenia} Legajo: {self.legajo}, Año de ingreso: {self.anioIngreso}"
     
-   
-    def ValidarIngresoEstudiante(self):
-        emailEstudiante = input("Ingrese su correo: ")
-        ContrEstudiante = input("Ingrese su contraseña: ")
+
+    # def ValidarIngresoEstudiante(self):
+    #     emailEstudiante = input("Ingrese su correo: ")
+    #     ContrEstudiante = input("Ingrese su contraseña: ")
         
-        if emailEstudiante == "lucasgonzalez@gmail.com" or emailEstudiante == "pedroperez@gmail.com" or emailEstudiante == "juliangomez@gmail.com" or emailEstudiante == "mateolopez@gmail.com" and ContrEstudiante == "123" or ContrEstudiante == "234" or ContrEstudiante == "345" or ContrEstudiante == "456":
-                    return "Ha accedido al sistema"
-        elif emailEstudiante != "lucasgonzalez@gmail.com" or emailEstudiante != "pedroperez@gmail.com" or emailEstudiante != "juliangomez@gmail.com" or emailEstudiante != "mateolopez@gmail.com":
-                    print ("El email ingresado es incorrecto. ")
-        elif ContrEstudiante != "123" or ContrEstudiante != "234" or ContrEstudiante != "345" or ContrEstudiante != "456":
-                    print ("La contraseña ingresada es incorrecta. ")
-        elif ( emailEstudiante != "lucasgonzalez@gmail.com" or emailEstudiante != "pedroperez@gmail.com" or emailEstudiante != "juliangomez@gmail.com" or emailEstudiante != "mateolopez@gmail.com" and ContrEstudiante != "123" or ContrEstudiante != "234" or ContrEstudiante != "345" or ContrEstudiante != "456"):
-                    print ("Email y contraseña incorrectos.El alumno debe darse de alta en alumnado ")
+    #     if emailEstudiante == "lucasgonzalez@gmail.com" or emailEstudiante == "pedroperez@gmail.com" or emailEstudiante == "juliangomez@gmail.com" or emailEstudiante == "mateolopez@gmail.com" and ContrEstudiante == "123" or ContrEstudiante == "234" or ContrEstudiante == "345" or ContrEstudiante == "456":
+    #                 return "Ha accedido al sistema"
+    #     elif emailEstudiante != "lucasgonzalez@gmail.com" or emailEstudiante != "pedroperez@gmail.com" or emailEstudiante != "juliangomez@gmail.com" or emailEstudiante != "mateolopez@gmail.com":
+    #                 print ("El email ingresado es incorrecto. ")
+    #     elif ContrEstudiante != "123" or ContrEstudiante != "234" or ContrEstudiante != "345" or ContrEstudiante != "456":
+    #                 print ("La contraseña ingresada es incorrecta. ")
+    #     elif ( emailEstudiante != "lucasgonzalez@gmail.com" or emailEstudiante != "pedroperez@gmail.com" or emailEstudiante != "juliangomez@gmail.com" or emailEstudiante != "mateolopez@gmail.com" and ContrEstudiante != "123" or ContrEstudiante != "234" or ContrEstudiante != "345" or ContrEstudiante != "456"):
+    #                 print ("Email y contraseña incorrectos.El alumno debe darse de alta en alumnado ")
         
+    def ValidarIngreso(self, email, contrasenia):
+        for estudiante in Estudiantes:
+            if estudiante.email == email:
+                if estudiante.contrasenia == contrasenia:
+                    return "¡Acceso concedido!"
+                else:
+                    return "Error de contraseña. Por favor, intenta de nuevo."
         
+        return "El alumno debe darse de alta en alumnado."        
 
     def Matricular(self, curso, contraseniaMateria):
         if curso in self.mis_cursosEstudiante:
@@ -60,7 +68,7 @@ class Profesor(Usuario):
     def DictarCurso(self):
         for materia in cursos: 
             print (materia)    
-        OptCurso = int(input("Ingrese el curso en el que desea dar clases\n"))
+        OptCurso = int(input("Ingrese el curso en el que desea dar clases: "))
         if 1 <= OptCurso <= len(cursos):
             materia = list(cursos.keys())[OptCurso - 1]
             contrasena = str(random.randint(10000, 99999))
@@ -177,6 +185,8 @@ while respuesta != "salir":
 
             emailEstudiante = input("Ingrese su correo: ")
             ContrEstudiante = input("Ingrese su contraseña: ")
+            mensaje = estudiante.ValidarIngreso(emailEstudiante, ContrEstudiante)
+            print(mensaje)
             
             estudiante_inscripto = None
             for estudiante in Estudiantes:
@@ -216,8 +226,7 @@ while respuesta != "salir":
                             pass
                         else:
                             print("Opción inválida")
-            else:
-                print("Opción inválida.Contraseña o mail Incorrectos")
+
             
 
         elif int(opt) == 2:
@@ -255,7 +264,7 @@ while respuesta != "salir":
                 else:
                     print("Opción incorrecta")
             else:
-                 print("Opcion Inválida.El mail o contraseña es incorrecto")
+                print("Opcion Inválida.El mail o contraseña es incorrecto")
         elif int(opt) == 3:
             Curso.__str__()
         elif int(opt) == 4:
